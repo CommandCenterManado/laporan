@@ -1,0 +1,101 @@
+<section id="dashboard">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-sm-4">
+				<div class="panel panel-red">
+					<div class="panel-heading text-center">
+						<h3>Laporan Masuk</h3>
+						<div class="row">
+							<div class="col-xs-6">
+								<div>Kemarin</div>
+								<div class="h3">12.345</div>
+							</div>
+							<div class="col-xs-6">
+								<div>Hari Ini</div>
+								<div class="h3">6.345</div>
+							</div>
+						</div>
+						<uib-progressbar max="dashboard.progressbarDilapor.max" value="dashboard.progressbarDilapor.value" type="white">
+							<span style="color: white; white-space: nowrap;"></span>
+						</uib-progressbar>
+						<div class="h4">4% lebih banyak <span style="color: rgba(0,0,0,0.25);">dari bulan lalu</span></div>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-4">
+				<div class="panel panel-yellow">
+					<div class="panel-heading text-center">
+						<h3>Laporan Diproses</h3>
+						<div class="row">
+							<div class="col-xs-6">
+								<div>Kemarin</div>
+								<div class="h3">12.345</div>
+							</div>
+							<div class="col-xs-6">
+								<div>Hari Ini</div>
+								<div class="h3">6.345</div>
+							</div>
+						</div>
+						<uib-progressbar max="dashboard.progressbarDilapor.max" value="dashboard.progressbarDilapor.value" type="white">
+							<span style="color: white; white-space: nowrap;"></span>
+						</uib-progressbar>
+						<div class="h4">4% lebih banyak <span style="color: rgba(0,0,0,0.25);">dari bulan lalu</span></div>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-4">
+				<div class="panel panel-green">
+					<div class="panel-heading text-center">
+						<h3>Laporan Selesai</h3>
+						<div class="row">
+							<div class="col-xs-6">
+								<div>Kemarin</div>
+								<div class="h3">12.345</div>
+							</div>
+							<div class="col-xs-6">
+								<div>Hari Ini</div>
+								<div class="h3">6.345</div>
+							</div>
+						</div>
+						<uib-progressbar max="dashboard.progressbarDilapor.max" value="dashboard.progressbarDilapor.value" type="white">
+							<span style="color: white; white-space: nowrap;"></span>
+						</uib-progressbar>
+						<div class="h4">4% lebih banyak <span style="color: rgba(0,0,0,0.25);">dari bulan lalu</span></div>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12">
+				<div class="panel panel-default">
+					<div class="panel-body row">
+						<div class="col-sm-9">
+							<hc-line options="dashboard.chartMain" style="width: 100%;"></hc-line>
+						</div>
+						<div class="col-sm-3">
+							<h3 style="margin-top: 0; margin-bottom: 15px;">
+								16.334.635.322
+								<br/>
+								<hc-line options="dashboard.chartProses" style="height: 65px"></hc-line>
+								<small style="color: #2ecc71;">Laporan Selesai</small>
+							</h3>
+							<h3 style="margin-top: 0; margin-bottom: 15px;">
+								24.764.412.499
+								<br/>
+								<hc-line options="dashboard.chartSelesai" style="height: 65px;"></hc-line>
+								<small style="color: #f1c40f;">Laporan Diproses</small>
+							</h3>
+							<h3 style="margin-top: 0; margin-bottom: 15px;">
+								33.528.824.998
+								<br/>
+								<hc-line options="dashboard.chartDilapor" style="height: 65px"></hc-line>
+								<small style="color: #e74c3c;">Laporan Dilapor</small>
+							</h3>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4">
+
+			</div>
+		</div>
+	</div>
+</section>

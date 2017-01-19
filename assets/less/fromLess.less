@@ -1,0 +1,462 @@
+/*
+*	Kalo mo styling jangan ubah di sini, ubah di 
+*	custom-fromLess.css
+*/
+
+//Import
+@import (reference) "bootstrap/bootstrap.less";
+
+//Variabels
+@import (reference) "variables.less";
+
+//Mixins
+@import (reference) "flexbox.less";
+@import (reference) "mixins.less";
+
+//Styling
+html {
+	font-size: 15px;
+	line-height: 1.5;
+}
+body {
+	background-color: @flatWhite;
+}
+.base-margin {
+	margin-top: 0;
+	margin-bottom: 15px;
+}
+.no-margin {
+	margin: 0;
+}
+.progress {
+	background-color: fade(black, 15%);
+	height: 5px;
+	border-radius: 1px;
+	.progress-bar-white {
+		background-color: white;
+		color: @flatDarkBlue-light;
+		.box-shadow(none);
+	}
+}
+
+/*
+*	Header
+*/
+#header {
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	z-index: 5;
+	.site-info-container {
+		display: block;
+		width: 100%;
+		position: relative;
+		color: white;
+		padding: 11px 0;
+		.site-info-text-align() {
+			position: absolute;
+			margin: 0;
+			top: 50%;
+			font-size: 30px;
+		}
+		.site-info-left {
+			.site-info-text-align();
+			left: 50%;
+			.translate(~"calc(-100% - 30px)", -50%);
+		}
+		.site-info-right {
+			.site-info-text-align();
+			right: 50%;
+			.translate(~"calc(100% + 30px)", -50%);
+		}
+		.site-info-logo {
+			display: block;
+			margin: 0 auto;
+			height: 49px;
+		}
+	}
+	.navbar-main {
+		background-color: @flatBlue-light;
+		position: relative;
+		.navbar {
+			position: absolute;
+			top: 0;
+			left: 0;
+			margin: 0;
+			border: none;
+			.nav {
+				> li {
+					> a {
+						padding: 25px 20px;	
+						color: white;
+						position: relative;
+						font-size: 20px;
+						line-height: 1;
+						&:after {
+							content: "";
+							height: 5px;
+							background-color: @flatWhite;
+							position: absolute;
+							right: 5px;
+							bottom: 0;
+							left: 5px;
+							opacity: 0;
+						}
+						&:hover {
+							background-color: @flatBlue;
+						}
+						&:focus {
+							background-color: @flatBlue;
+						}
+					}
+				}
+			}
+			&.navbar-right {
+				left: auto;
+				right: 0;
+			}
+		}
+	}
+	.navbar-second {
+		margin: 0;
+		border: 0;
+		border-radius: 0;
+		border-bottom: 1px solid @flatSilver;
+		background-color: white;
+		.nav {
+			width: 100%;
+			text-align: center;
+			> li {
+				padding: 20px 15px;
+				display: inline-block;
+				float: initial;
+				> a {
+					color: @flatBlue-light;
+					font-weight: bold;
+					padding: 0;
+					font-size: 15px;
+					&:hover {
+						color: @flatBlue;
+						background-color: transparent;
+					}
+					&:focus {
+						background-color: transparent;
+					}
+				}
+				&.active {
+					position: relative;
+					&:after {
+						content: "";
+						position: absolute;
+						right: 0;
+						bottom: 0;
+						left: 0;
+						background-color: @flatBlue-light;
+						height: 3px;	
+					}
+				}
+			}
+		}
+	}
+}
+
+/*
+*	Main Content
+*/
+#main {
+	position: relative;
+	margin-top: 131px;
+	.h1,.h2,.h3,.h4,.h5,.h6 {
+		.base-margin;
+	}
+	.panel {
+		border-radius: 2px;
+		border-color: @flatSilver;
+		.panel-heading {
+			border-radius: 0;
+		}
+		&.panel-card-grid {
+			.panel-card-image {
+				padding: 0;
+				.aspect-ratio(4,3);
+				> img {
+					object-fit: cover;
+				}
+			}
+			.panel-card-info {
+				border-top: 0;
+			}
+			.panel-card-button button {
+				border-radius: 0;
+				border-color: #ddd;
+			}
+		}
+		&.panel-card-table {
+			.table.table-bordered {
+				> thead {
+					border-bottom: 2px solid #ddd;
+					> tr > th {
+						border: 1px solid #ddd;
+						border-top: none;
+						&:first-child {
+							border-left: none;
+						}
+						&:last-child {
+							border-right: none;
+						}
+					}
+				}
+			}
+		}
+		&.panel-green {
+			border-color: @flatGreen;
+			> .panel-heading {
+				color: white;
+				background-color: @flatGreen-light;
+			}
+		}
+		&.panel-red {
+			border-color: @flatRed;
+			> .panel-heading {
+				color: white;
+				background-color: @flatRed-light;
+			}
+		}
+		&.panel-yellow {
+			border-color: @flatOrange;
+			> .panel-heading {
+				color: white;
+				background-color: @flatYellow;
+			}
+		}
+		&.panel-card-facebook {
+			> hr {
+				margin: 5px 10px;
+				border-color: @flatSilver;
+			}
+			.panel-heading {
+				background-color: transparent;
+				padding: 15px 15px 0 15px;
+				margin-bottom: 11px;
+				border-bottom: none;
+				.clearfix();
+				.panel-heading-image-wrapper {
+					float: left;
+					width: 40px;
+					margin-right: 7px;
+					.aspect-ratio(1,1);
+				}
+				.panel-heading-text-wrapper {
+					overflow: hidden;
+					> h5 {
+						font-size: 1rem;
+						font-weight: bold;
+						margin: 0 0 2px 0;
+						line-height: 1.38;
+					}
+					> .caption {
+						font-size: 0.8rem;
+						font-weight: normal;
+						color: @flatSilver;
+					}
+				}
+			}
+			.panel-body {
+				padding-top: 0;
+				padding-bottom: 0;
+				> p {
+					margin: 0 0 5px 0;
+				}
+			}
+			.panel-footer {
+				background-color: transparent;
+				border-top: none;
+				padding-top: 0;
+				> a {
+					color: @flatGrey;
+					font-weight: bold;
+					font-size: 0.8rem;
+					> .icon {
+						margin-right: 3px;
+					}
+				}	
+			}
+		}
+	}
+	#filter {
+		margin-bottom: 25px;
+		.form-group {
+			border-bottom: 1px solid @flatSilver;
+			margin-bottom: 0;
+			.filter-item {
+				border-left: 1px solid lighten(@flatSilver, 13%);
+				padding-top: 15px;
+				padding-bottom: 15px;
+				&:first-child {
+					border-left: none;
+				}
+			}
+			.form-control {
+				border-radius: 0;
+				box-shadow: none;
+			}
+		}
+	}
+	#laporanVerify {
+		padding-top: 25px;
+	}
+}
+.modal {
+	.form-group {
+		label {
+			color: @flatGrey-light;
+			font-size: 0.8rem;
+			font-weight: normal;
+			margin: 0;
+			line-height: 1;
+		}
+		.form-control {
+			border: none;
+			border-bottom: 1px solid @flatSilver;
+			background-color: transparent;
+			border-radius: 0;
+			line-height: 1;
+			height: 3rem;
+			padding: 0;
+			font-size: 1rem;
+			margin-bottom: 20px;
+			.box-shadow(none);
+			&[type="file"]{
+				position: relative;
+				padding: 0.7rem 0;
+				&::-webkit-file-upload-button {
+					visibility: hidden;
+				}
+				&:after {
+					position: absolute;
+					top: 0;
+					left: 0;
+					text-transform: uppercase;
+					content: "File";
+					color: white;
+					padding: 1rem 2rem;
+					font-size: 1rem;
+					background-color: @flatGrey-light;
+					&:hover {
+						cursor: pointer;
+					}
+				}
+			}
+			&[disabled] {
+				.placeholder(fade(black, 15%));
+				color: fade(black, 35%);
+				border-bottom: 1px dotted @flatSilver;
+			}
+			&[readonly] {
+				border-bottom: 1px dotted @flatSilver;
+			}
+		}
+		textarea.form-control {
+			resize: vertical;
+			line-height: 1.5;
+			min-height: 10rem;
+			padding: 0.8rem 0 1.6rem 0;
+		}
+		.input-group {
+			margin-bottom: 20px;
+			.input-group-addon {
+				border: none;
+				background-color: transparent;
+				padding: 0 1rem;
+			}
+			.input-group-btn {
+				button {
+					height: 3rem;
+					padding: 0 1rem;
+					border: none;
+					border-radius: 0;
+					margin-right: 10px;
+					text-transform: uppercase;
+				}
+			}
+			.form-control {
+				margin-bottom: 0;
+			}
+		}
+	}
+	.modal-dialog {
+		.modal-content {
+			border-radius: 0;
+			.modal-body {
+				.modal-body-icon-lg {
+					text-align: center;
+					margin-top: 10px;
+					margin-bottom: 15px;
+				}
+				.modal-body-icon-alert {
+					color: @flatOrange;
+				}
+			}
+		}
+	}
+}
+.secondPopupMap .aspect-ratio {
+	.aspect-ratio(7, 4);
+}
+
+#dashboard {
+	padding-top: 25px;
+	&-list {
+		.panel {
+			&.panel-card-table {
+				.table.table-bordered {
+					width: 100%;
+					> thead {
+						> tr > th {
+							text-align: center;
+							vertical-align: middle;
+							white-space: nowrap;
+						}
+					}
+					> tbody {
+						> tr > td {
+							vertical-align: middle;
+							text-align: center;
+							white-space: nowrap;
+							&.table-card-bordered-summary {
+								max-width: 60%;
+								.table-card-bordered-summary-wrapper {
+									display: table;
+									table-layout: fixed;
+									width: 100%;
+									.table-card-bordered-summary-wrapper-level-2 {
+										display: table-cell;
+										.text-overflow();
+									}
+								}
+							}
+							&.table-card-bordered-check-box {
+								width: 50px;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	&-maps {
+		position: fixed;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		#map-container {
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+		}
+	}
+}

@@ -1,0 +1,41 @@
+<section id="dashboard-list">
+	<div class="container">
+		<div class="panel panel-default panel-card-table">
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th rowspan="2">ID Laporan</th>
+						<th rowspan="2">Waktu</th>
+						<th rowspan="2">Kategori</th>
+						<th rowspan="2">Ringkasan</th>
+						<th colspan="3">Status</th>
+						<th rowspan="2">Tangani Oleh</th>
+					</tr>
+					<tr>
+						<th>Dilapor</th>
+						<th>Proses</th>
+						<th>Selesai</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="laporan in vmList.dataLaporan">
+						<td><a href ng-click="vmList.openModal(laporan)"><h2 class="no-margin">{{laporan.nomor_laporan}}</h2></a></td>
+						<td>{{laporan.waktu_laporan}}</td>
+						<td>
+							<i ng-repeat="icon in laporan.icon" class="{{icon}}"></i>
+						</td>
+						<td class="table-card-bordered-summary">
+							<div class="table-card-bordered-summary-wrapper">
+								<div class="table-card-bordered-summary-wrapper-level-2">{{laporan.isi_laporan}}</div>
+							</div>
+						</td>
+						<td class="table-card-bordered-check-box"><i ng-if="laporan.status[0] == true" class="fa fa-check"></i></td>
+						<td class="table-card-bordered-check-box"><i ng-if="laporan.status[1] == true" class="fa fa-check"></i></td>
+						<td class="table-card-bordered-check-box"><i ng-if="laporan.status[2] == true" class="fa fa-check"></i></td>
+						<td>Lorem Ipsum</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</section>

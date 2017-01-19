@@ -1,0 +1,66 @@
+<form>
+	<div class="modal-header">
+		<button type="button" class="close" ng-click="vm.cancel()">&times;</button>
+		<h4 class="modal-title">{{vm.itemData.nomor}}</h4>
+	</div>
+	<div class="modal-body">
+		<div class="row form-group">
+			<div class="col-lg-12">
+				<label>Nama Pelapor</label>
+				<input type="text" class="form-control" placeholder="Nama Lengkap" ng-model="vm.itemData.nama_pelapor"/>
+			</div>
+			<div class="col-xs-6">
+				<label>Email Pelapor</label>
+				<input type="text" class="form-control" placeholder="Email" ng-model="vm.itemData.email_pelapor"/>
+			</div>
+			<div class="col-xs-6">
+				<label>Nomor HP Pelapor</label>
+				<input type="text" class="form-control" placeholder="Nomor Handphone" ng-model="vm.itemData.nomor_laporan"/>
+			</div>
+			<div class="col-lg-12">
+				<label>Alamat Pelapor</label>
+				<input type="text" class="form-control" placeholder="Alamat" ng-model="vm.itemData.alamat_pelapor"/>
+			</div>
+			<div class="col-lg-12">
+				<label>Kategori</label>
+				<select class="form-control">
+					<option value="value">Value</option>
+				</select>
+			</div>
+			<div class="col-xs-6">
+				<label>Kecamatan</label>
+				<select class="form-control">
+					<option value="value">Value</option>
+				</select>
+			</div>
+			<div class="col-xs-6">
+				<label>Kelurahan</label>
+				<select class="form-control">
+					<option value="value">Value</option>
+				</select>
+			</div>
+			<div class="col-lg-12">
+				<label>Isi Laporan</label>
+				<textarea class="form-control" placeholder="Laporan" ng-model="vm.itemData.isiLaporan"></textarea>
+			</div>
+			<div class="col-xs-6">
+				<label>Tandai Lokasi</label>
+				<div class="input-group">
+					<div class="input-group-btn">
+						<button class="btn btn-primary" ng-click="vm.openSecond()">Map</button>
+					</div>
+					<input type="text" class="form-control" placeholder="Latitude, Longitude"/>
+				</div>
+			</div>
+			<div class="col-xs-6">
+				<label>Bukti Foto</label>
+				<input type="file" class="form-control"/>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button type="submit" class="btn btn-primary" ng-click="vm.ok()">Simpan</button>
+		<button type="button" class="btn btn-danger" ng-click="vm.delete(console.log('hapus'))">Hapus</button>
+		<button type="button" class="btn btn-default" ng-click="vm.cancel()">Tutup</button>
+	</div>
+</form>

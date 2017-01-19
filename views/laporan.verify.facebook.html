@@ -1,0 +1,28 @@
+<section id="laporanVerify">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6 col-lg-offset-3" ng-repeat="laporan in vmFacebook.dataLaporan">
+				<div class="panel panel-default panel-card-facebook">
+					<div class="panel-heading">
+						<div class="panel-heading-image-wrapper">
+							<img class="content" src="assets/img/640x360.jpg" alt="Gambar"/>
+						</div>
+						<div class="panel-heading-text-wrapper">
+							<h5 class="title">{{laporan.nama_user}}</h5>
+							<div class="caption">
+								<span>{{laporan.waktu}}</span>
+							</div>
+						</div>
+					</div>
+					<div class="panel-body">
+						<p>{{laporan.message}}</p>
+					</div>
+					<hr/>
+					<div class="panel-footer">
+						<a href ng-click="vmFacebook.openModal(laporan, $index)"><i class="fa fa-check fa-lg icon"></i>Approve</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

@@ -1,0 +1,28 @@
+<header id="header">
+	<div class="navbar-main">
+		<div class="site-info-container">
+			<span class="site-info-left">Pemerintah</span>
+			<img class="site-info-logo" src="assets/img/logo_manado.png"/>
+			<span class="site-info-right">Kota Manado</span>
+		</div>
+		<div class="navbar">
+			<ul class="nav navbar-nav">
+				<li><a href ui-sref="tasks.dashboard"><i class="fa fa-tasks fa-lg"></i></a></li>
+				<li><a href ui-sref="verify.web"><i class="fa fa-file-text fa-lg"></i></a></li>
+				<li><a href><i class="fa fa-wrench fa-lg"></i></a></li>
+			</ul>
+		</div>
+		<div class="navbar navbar-right">
+			<ul class="nav navbar-nav">
+				<li uib-dropdown>
+					<a href uib-dropdown-toggle>Command Center</a>
+					<ul class="dropdown-menu" uib-dropdown-menu>
+						<li><a href>Logout</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div ui-view="navSecond">
+	</div>
+</header>

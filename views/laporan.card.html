@@ -1,0 +1,35 @@
+<section id="dashboard-card">
+	<div class="container">
+		<div class="row">
+			<div ng-repeat="laporan in vmCard.dataLaporan" class="col-xs-6 col-sm-4 col-md-3">
+				<div class="panel panel-default panel-card-grid">
+					<div class="panel-heading panel-card-image">
+						<img class="content" src="assets/img/640x360.jpg" alt="Gambar"/>
+					</div>
+					<table class="table panel-card-info">
+						<tr>
+							<th colspan="2" class="text-center">{{laporan.status}}</th>
+						</tr>
+						<tr>
+							<th><h2 class="no-margin">{{laporan.nomor_laporan}}</h2></th>
+							<th style="vertical-align: middle;">
+								<i ng-repeat="icon in laporan.icon" class="{{icon}}"></i>
+							</th>
+						</tr>
+						<tr>
+							<td colspan="2">{{laporan.waktu_laporan}}</td>
+						</tr>
+					</table>
+					<div class="btn-group btn-group-justified panel-card-button" role="group">
+						<div class="btn-group">
+							<button style="border-left: none;" class="btn btn-default btn-lg" ng-click="vmCard.openModal(laporan)">Info</button>
+						</div>
+						<div class="btn-group">
+							<button style="border-right: none;" class="btn btn-default btn-lg">Peta</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

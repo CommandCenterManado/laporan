@@ -1,0 +1,32 @@
+<section id="laporanVerify">
+	<div class="container">
+		<div class="row">
+			<div ng-repeat="laporan in vmWeb.dataLaporan" class="col-xs-6 col-sm-4 col-md-3">
+				<div class="panel panel-default panel-card-grid">
+					<div class="panel-heading panel-card-image">
+						<img class="content" ng-src="http://edgarjeremy.com/assets/uploads/laporan/{{laporan.file_attach}}" alt="Gambar"/>
+					</div>
+					<table class="table panel-card-info">
+						<tr>
+							<th colspan="2" class="text-center">{{laporan.status}}</th>
+						</tr>
+						<tr>
+							<th><h2 class="no-margin">{{laporan.nomor_laporan}}</h2></th>
+							<th style="vertical-align: middle;">
+								<i ng-repeat="icon in laporan.icon" class="{{icon}}"></i>
+							</th>
+						</tr>
+						<tr>
+							<td colspan="2">{{laporan.waktu_laporan}}</td>
+						</tr>
+					</table>
+					<div class="btn-group btn-group-justified panel-card-button" role="group">
+						<div class="btn-group">
+							<button style="border-left: none; border-right: none;" class="btn btn-default btn-lg" ng-click="vmWeb.openModal(laporan, $index)">Approve</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

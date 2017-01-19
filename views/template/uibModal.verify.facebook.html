@@ -1,0 +1,66 @@
+<form>
+	<div class="modal-header">
+		<button type="button" class="close" ng-click="vm.modalInstance.dismiss()">&times;</button>
+		<h4 class="modal-title">{{vm.itemData.nomor_laporan}}</h4>
+	</div>
+	<div class="modal-body">
+		<div class="row form-group">
+			<div class="col-lg-12">
+				<label>Nama Pelapor</label>
+				<input type="text" class="form-control" placeholder="Nama Lengkap" ng-model="vm.itemDataSend.nama_pelapor"/>
+			</div>
+			<div class="col-xs-6">
+				<label>Email Pelapor</label>
+				<input type="text" class="form-control" placeholder="Email" ng-model="vm.itemDataSend.email_pelapor"/>
+			</div>
+			<div class="col-xs-6">
+				<label>Nomor HP Pelapor</label>
+				<input type="text" class="form-control" placeholder="Nomor Handphone" ng-model="vm.itemDataSend.nomorhp_pelapor"/>
+			</div>
+			<div class="col-lg-12">
+				<label>Alamat Pelapor</label>
+				<input type="text" class="form-control" placeholder="Alamat" ng-model="vm.itemDataSend.alamat_pelapor"/>
+			</div>
+			<div class="col-lg-12">
+				<label>Kategori</label>
+				<select class="form-control" ng-model="vm.itemDataSend.idkategori_laporan">
+					<option ng-repeat="kategori in vm.dataLaporanKategori" value="{{kategori.idkategori_laporan}}">{{kategori.nama_kategori}}</option>
+				</select>
+			</div>
+			<div class="col-xs-6">
+				<label>Kecamatan</label>
+				<select class="form-control" ng-change="vm.dataKelurahan(vm.itemDataSend.idkecamatan)" ng-model="vm.itemDataSend.idkecamatan">
+					<option ng-repeat="kecamatan in vm.dataLaporanKecamatan" value="{{kecamatan.idkecamatan}}">{{kecamatan.nama_kecamatan}}</option>
+				</select>
+			</div>
+			<div class="col-xs-6">
+				<label>Kelurahan</label>
+				<select class="form-control" ng-model="vm.itemDataSend.idkelurahan">
+					<option ng-repeat="kelurahan in vm.dataLaporanKelurahan" value="{{kelurahan.idkelurahan}}">{{kelurahan.nama_kelurahan}}</option>
+				</select>
+			</div>
+			<div class="col-lg-12">
+				<label>Isi Laporan</label>
+				<textarea class="form-control" placeholder="Laporan" ng-model="vm.itemDataSend.isi_laporan"></textarea>
+			</div>
+			<div class="col-xs-12">
+				<label>Tandai Lokasi</label>
+				<div class="input-group">
+					<div class="input-group-btn">
+						<button class="btn btn-primary" ng-click="vm.openSecond()">Map</button>
+					</div>
+					<input type="text" class="form-control" placeholder="Latitude, Longitude" ng-model="vm.latLng" readonly />
+				</div>
+			</div>
+			<div class="col-xs-12">
+				<label>Tandai Lokasi</label>
+				<input type="file" onchange="angular.element(this).scope().upload(this)" class="form-control" placeholder="Latitude, Longitude" readonly />
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button type="submit" class="btn btn-primary" ng-click="vm.sendData()">Simpan</button>
+		<button type="button" class="btn btn-danger" ng-click="vm.hapusData()">Hapus</button>
+		<button type="button" class="btn btn-default" ng-click="vm.modalInstance.dismiss()">Tutup</button>
+	</div>
+</form>
