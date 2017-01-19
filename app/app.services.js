@@ -23,12 +23,10 @@ function dataApi($http, logger){
 		getDataLaporanKategori: getDataLaporanKategori,
 		getDataLaporanKecamatan: getDataLaporanKecamatan,
 		getDataLaporanKelurahan: getDataLaporanKelurahan,
-		getDataLaporanVerifyWeb: getDataLaporanVerifyWeb,
-		getDataLaporanVerifyAndroid: getDataLaporanVerifyAndroid,
-		getDataLaporanVerifyFacebook: getDataLaporanVerifyFacebook
+		getDataLaporanVerify: getDataLaporanVerify
 	}
 
-	function getDataLaporan(){
+	function getDataLaporan(approve){
 		return $http.get(baseURL + '/ambil_laporan')
 		.then(getDataLaporanComplete)
 		.catch(getDataLaporanFailed);
@@ -76,39 +74,15 @@ function dataApi($http, logger){
 			logger.error('Gagal mengambil data');
 		}
 	}
-	function getDataLaporanVerifyWeb(){
-		return $http.get(baseURL + '/ambil_laporan_publik/web')
-		.then(getDataLaporanVerifyWebComplete)
-		.catch(getDataLaporanVerifyWebFailed);
+	function getDataLaporanVerify(type){
+		return $http.get(baseURL + '/ambil_laporan_publik/' + type)
+		.then(getDataLaporanVerifyComplete)
+		.catch(getDataLaporanVerifyFailed);
 
-		function getDataLaporanVerifyWebComplete(response){
+		function getDataLaporanVerifyComplete(response){
 			return response.data;
 		}
-		function getDataLaporanVerifyWebFailed(error){
-			logger.error('Gagal mengambil data')
-		}
-	}
-	function getDataLaporanVerifyAndroid(){
-		return $http.get(baseURL + '/ambil_laporan_publik/android')
-		.then(getDataLaporanVerifyAndroidComplete)
-		.catch(getDataLaporanVerifyAndroidFailed);
-
-		function getDataLaporanVerifyAndroidComplete(response){
-			return response.data;
-		}
-		function getDataLaporanVerifyAndroidFailed(error){
-			logger.error('Gagal mengambil data')
-		}
-	}
-	function getDataLaporanVerifyFacebook(){
-		return $http.get(baseURL + '/ambil_laporan_facebook')
-		.then(getDataLaporanVerifyFacebookComplete)
-		.catch(getDataLaporanVerifyFacebookFailed);
-
-		function getDataLaporanVerifyFacebookComplete(response){
-			return response.data;
-		}
-		function getDataLaporanVerifyFacebookFailed(error){
+		function getDataLaporanVerifyFailed(error){
 			logger.error('Gagal mengambil data')
 		}
 	}
@@ -118,7 +92,8 @@ function postDataApi($http, logger){
 	var baseURL = 'http://edgarjeremy.com/index.php/api';
 
 	return {
-		postSimpanLaporan: postSimpanLaporan
+		postSimpanLaporan: postSimpanLaporan,
+		postApproveLaporan: postApproveLaporan
 	}
 	
 	function postSimpanLaporan(data){
@@ -130,6 +105,18 @@ function postDataApi($http, logger){
 			return response.data;
 		}
 		function postSimpanLaporanFailed(error){
+			logger.error('Gagal mengambil data');
+		}
+	}
+	function postApproveLaporan(data){
+		return $http.post(baseURL + '/approve_laporan', data)
+		.then(postApproveLaporanComplete)
+		.catch(postApproveLaporanFailed);
+
+		function postApproveLaporanComplete(response){
+			return response.data;
+		}
+		function postApproveLaporanFailed(error){
 			logger.error('Gagal mengambil data');
 		}
 	}
