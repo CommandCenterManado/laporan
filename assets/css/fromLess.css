@@ -138,8 +138,8 @@ body {
 }
 #header .navbar-second .nav > li {
   padding: 20px 15px;
+  float: none;
   display: inline-block;
-  float: initial;
 }
 #header .navbar-second .nav > li > a {
   color: #3498db;
@@ -359,6 +359,15 @@ body {
 #main #laporanVerify {
   padding-top: 25px;
 }
+#alert {
+  position: fixed;
+  bottom: 25px;
+  left: 25px;
+  width: 350px;
+}
+#alert .alert:last-child {
+  margin-bottom: 0;
+}
 .modal .form-group label {
   color: #95a5a6;
   font-size: 0.8rem;
@@ -520,5 +529,3 @@ body {
   bottom: 0;
   left: 0;
 }
-
-/*# sourceMappingURL=fromLess.css.map */

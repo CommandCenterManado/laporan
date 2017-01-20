@@ -1,7 +1,9 @@
 angular
 	.module('app')
 	.controller('headerController', headerController)
+	.controller('alertController', alertController)
 	.controller('dashboardController', dashboardController)
+	.controller('filterController', filterController)
 	.controller('laporanListController', laporanListController)
 	.controller('laporanCardController', laporanCardController)
 	.controller('laporanVerifyWebController', laporanVerifyWebController)
@@ -11,19 +13,30 @@ angular
 	.controller('modalVerifyWebController', modalVerifyWebController)
 	.controller('modalVerifyFacebookController', modalVerifyFacebookController);
 
+alertController.$inject = ['alert', '$rootScope'];
 dashboardController.$inject = ['dataApi', 'logger'];
-laporanListController.$inject = ['$uibModal', 'dataApi', 'logger'];
-laporanCardController.$inject = ['$uibModal', 'dataApi', 'logger'];
-laporanMapController.$inject = ['$uibModal', 'dataApi', 'logger'];
+filterController.$inject = ['dataApi', 'logger'];
+laporanListController.$inject = ['$uibModal', 'dataApi', 'logger', '$rootScope'];
+laporanCardController.$inject = ['$uibModal', 'dataApi', 'logger', '$rootScope'];
+laporanMapController.$inject = ['$uibModal', 'dataApi', 'logger', '$rootScope'];
 laporanVerifyWebController.$inject = ['$uibModal', 'dataApi', 'logger', '$rootScope'];
 laporanVerifyFacebookController.$inject = ['$uibModal', 'dataApi', 'logger', '$rootScope', '$http'];
-modalController.$inject = ['$uibModal', '$uibModalInstance', 'logger', 'modalData', '$scope', 'postDataApi'];
-modalVerifyWebController.$inject = ['$uibModal', '$uibModalInstance', 'logger', 'modalData', 'dataApi', 'postDataApi', '$http', '$scope', '$rootScope'];
-modalVerifyFacebookController.$inject = ['$uibModal', '$uibModalInstance', 'logger', 'modalData', 'dataApi', 'postDataApi', '$http', '$scope', '$rootScope'];
+modalController.$inject = ['$uibModal', '$uibModalInstance', 'logger', 'modalData', '$scope', 'postDataApi', '$rootScope', 'alert'];
+modalVerifyWebController.$inject = ['$uibModal', '$uibModalInstance', 'logger', 'modalData', 'dataApi', 'postDataApi', '$http', '$scope', '$rootScope', 'alert'];
+modalVerifyFacebookController.$inject = ['$uibModal', '$uibModalInstance', 'logger', 'modalData', 'dataApi', 'postDataApi', '$http', '$scope', '$rootScope', 'alert'];
 
 function headerController() {
 
 };
+function alertController(alert, $rootScope) {
+	var vm = this;
+	vm.alertScope = alert.alertScope;
+	vm.closeAlert = closeAlert;
+
+	function closeAlert(index) {
+		vm.alertScope.splice(index, 1);
+	}
+}
 
 function dashboardController(dataApi, logger) {
 	var vm = this;
@@ -209,10 +222,14 @@ function dashboardController(dataApi, logger) {
 		}
 	};
 };
-
-function laporanListController($uibModal, dataApi, logger) {
+function filterController(dataApi, logger) {
+	var vm = this;
+}
+function laporanListController($uibModal, dataApi, logger, $rootScope) {
 	var vm = this;
 	vm.openModal = openModal;
+
+	$rootScope.laporanActivate = activate;
 
 	activate();
 
@@ -220,7 +237,6 @@ function laporanListController($uibModal, dataApi, logger) {
 		return getDataLaporan().then(function (data) {
 			vm.dataLaporan = data;
 
-			logger.debug(vm.dataLaporan);
 			angular.forEach(vm.dataLaporan, function (value, key) {
 				if (value.status == 'dilapor') {
 					value.status = [true, false, false];
@@ -245,7 +261,6 @@ function laporanListController($uibModal, dataApi, logger) {
 					value.icon = [value.icon, "fa fa-phone fa-lg"];
 				}
 			});
-			console.log(vm.dataLaporan);
 		});
 	}
 	function getDataLaporan() {
@@ -255,8 +270,7 @@ function laporanListController($uibModal, dataApi, logger) {
 				return vm.dataBijon;
 			})
 	}
-	function openModal(itemData, indexLaporan) {
-		logger.info(itemData);
+	function openModal(itemData) {
 		var modalInstance = $uibModal.open({
 			ariaLabelledBy: 'modal-title',
 			ariaDescribedBy: 'modal-body',
@@ -266,25 +280,24 @@ function laporanListController($uibModal, dataApi, logger) {
 			resolve: {
 				modalData: function () {
 					return {
-						itemData: itemData,
-						indexLaporan: indexLaporan
+						itemData: itemData
 					};
 				}
 			}
 		});
 	}
 }
-function laporanCardController($uibModal, dataApi, logger) {
+function laporanCardController($uibModal, dataApi, logger, $rootScope) {
 	var vm = this;
 	vm.openModal = openModal;
+
+	$rootScope.laporanActivate = activate;
 
 	activate();
 
 	function activate() {
 		getDataLaporan().then(function (data) {
 			vm.dataLaporan = data;
-			logger.info('dataLaporan is Activate');
-			logger.debug(data);
 
 			angular.forEach(vm.dataLaporan, function (value, key) {
 				if (value.jenis_laporan == "web") {
@@ -320,13 +333,15 @@ function laporanCardController($uibModal, dataApi, logger) {
 			controllerAs: 'vm',
 			resolve: {
 				modalData: function () {
-					return itemData;
+					return {
+						itemData: itemData
+					};
 				}
 			}
 		});
 	}
 }
-function laporanMapController($uibModal, dataApi, logger) {
+function laporanMapController($uibModal, dataApi, logger, $rootScope) {
 	var vm = this;
 	vm.openModal = openModal;
 
@@ -335,7 +350,6 @@ function laporanMapController($uibModal, dataApi, logger) {
 	function activate() {
 		return getDataLaporan().then(function (data) {
 			vm.dataLaporan = data;
-			logger.debug(vm.dataLaporan);
 		});
 	}
 	function getDataLaporan() {
@@ -368,7 +382,6 @@ function laporanVerifyWebController($uibModal, dataApi, logger, $rootScope) {
 
 	function activate() {
 		getDataLaporanVerify().then(function (data) {
-			logger.debug(data);
 			vm.dataLaporan = data;
 			angular.forEach(vm.dataLaporan, function (value, key) {
 				if (value.jenis_laporan == "web") {
@@ -457,30 +470,46 @@ function laporanVerifyFacebookController($uibModal, dataApi, logger, $rootScope,
 	}
 }
 
-function modalController($uibModal, $uibModalInstance, logger, modalData, $scope, postDataApi) {
+function modalController($uibModal, $uibModalInstance, logger, modalData, $scope, postDataApi, $rootScope, alert) {
 	var vm = this;
 	vm.sendData = sendData;
 	vm.itemData = modalData.itemData;
+	logger.debug(vm.itemData);
 	vm.itemDataSend = {
+		idlaporan_masyarakat: vm.itemData.idlaporan_masyarakat,
 		proses: {
-			isi_laporan: undefined,
+			tindakan_proses: undefined,
 			pengerjaan_hari: undefined,
 			pengerjaan_jam: undefined,
-			file_attach: undefined
+			file_respon_proses: {
+				nama: undefined,
+				file: undefined
+			}
 		},
 		selesai: {
-			isi_laporan: undefined,
-			file_attach: undefined
+			tindakan_selesai: undefined,
+			file_respon_selesai: {
+				nama: undefined,
+				file: undefined
+			}
 		}
 	};
-	vm.openSecond = openSecondModal;
+	vm.openMapModal = openMapModal;
 	vm.cancel = modalCancel;
 
 	$scope.uploadProses = function (el) {
 		if (el.files && el.files[0]) {
 			var fr = new FileReader();
+			var fileType = el.files[0].type;
 			fr.onload = function (e) {
-				vm.itemDataSend.proses.file_attach = e.target.result;
+				if (fileType.split("/")[0] == "image") {
+					vm.itemDataSend.proses.file_respon_proses.nama = el.files[0].name;
+					vm.itemDataSend.proses.file_respon_proses.file = e.target.result;
+					angular.element(el).removeClass('error');
+				} else {
+					angular.element(el).addClass('error');
+					el.value = '';
+				}
 			}
 			fr.readAsDataURL(el.files[0]);
 		}
@@ -488,14 +517,22 @@ function modalController($uibModal, $uibModalInstance, logger, modalData, $scope
 	$scope.uploadSelesai = function (el) {
 		if (el.files && el.files[0]) {
 			var fr = new FileReader();
+			var fileType = el.files[0].type;
 			fr.onload = function (e) {
-				vm.itemDataSend.selesai.file_attach = e.target.result;
+				if (fileType.split("/")[0] == "image") {
+					vm.itemDataSend.selesai.file_respon_selesai.nama = el.files[0].name;
+					vm.itemDataSend.selesai.file_respon_selesai.file = e.target.result;
+					angular.element(el).removeClass('error');
+				} else {
+					angular.element(el).addClass('error');
+					el.value = '';
+				}
 			}
 			fr.readAsDataURL(el.files[0]);
 		}
 	}
 
-	function openSecondModal() {
+	function openMapModal() {
 		var modalInstance = $uibModal.open({
 			ariaLabelledBy: 'modal-title',
 			ariaDescribedBy: 'modal-body',
@@ -530,13 +567,23 @@ function modalController($uibModal, $uibModalInstance, logger, modalData, $scope
 		}
 	}
 
-
 	function sendData() {
-		postDataApi.postData(vm.itemDataSend)
-			.then(function (response) {
-				console.log(response);
+		postUrusLaporan().then(function (response) {
+			$uibModalInstance.dismiss();
+			$rootScope.laporanActivate();
+			if (response.status == 'ok') {
+				alert.alertScope.push({ type: 'info', msg: 'Laporan di tangani' });
+			} else {
+				alert.alertScope.push({type: 'danger', msg: 'Laporan tidak di tangani'})
+			}
+		})
+	}
+	function postUrusLaporan() {
+		return postDataApi.postUrusLaporan(vm.itemDataSend)
+			.then(function (data) {
+				var urusLaporan = data;
+				return urusLaporan;
 			})
-		$uibModalInstance.dismiss();
 	}
 
 	function modalCancel() {
@@ -546,11 +593,11 @@ function modalController($uibModal, $uibModalInstance, logger, modalData, $scope
 	};
 }
 
-function modalVerifyWebController($uibModal, $uibModalInstance, logger, modalData, dataApi, postDataApi, $http, $scope, $rootScope) {
+function modalVerifyWebController($uibModal, $uibModalInstance, logger, modalData, dataApi, postDataApi, $http, $scope, $rootScope, alert) {
 	var vm = this;
 	vm.modalInstance = $uibModalInstance;
 	vm.sendData = sendData;
-	vm.openSecond = openSecondModal;
+	vm.openMapModal = openMapModal;
 	vm.itemData = modalData.itemData;
 	vm.hapusData = hapusData;
 	vm.latLng = undefined;
@@ -558,14 +605,14 @@ function modalVerifyWebController($uibModal, $uibModalInstance, logger, modalDat
 		idlaporan_masyarakat: vm.itemData.idlaporan_masyarakat,
 		jenis_laporan: 'web',
 		latitude: undefined,
-		longitude: undefined,
-		file_attach: vm.itemData.file_attach
+		longitude: undefined
 	};
 
 	function sendData() {
 		postSimpanLaporanWeb().then(function (response) {
 			$uibModalInstance.dismiss();
 			$rootScope.laporanVerifyWeb();
+			alert.alertScope.push({ type: 'info', msg: 'Laporan Berhasil di Approve' });
 		})
 	}
 	function postSimpanLaporanWeb() {
@@ -579,7 +626,7 @@ function modalVerifyWebController($uibModal, $uibModalInstance, logger, modalDat
 	function hapusData() {
 	}
 
-	function openSecondModal() {
+	function openMapModal() {
 		var modalInstance = $uibModal.open({
 			ariaLabelledBy: 'modal-title',
 			ariaDescribedBy: 'modal-body',
@@ -616,12 +663,12 @@ function modalVerifyWebController($uibModal, $uibModalInstance, logger, modalDat
 		}
 	}
 }
-function modalVerifyFacebookController($uibModal, $uibModalInstance, logger, modalData, dataApi, postDataApi, $http, $scope, $rootScope) {
+function modalVerifyFacebookController($uibModal, $uibModalInstance, logger, modalData, dataApi, postDataApi, $http, $scope, $rootScope, alert) {
 	var vm = this;
 	vm.modalInstance = $uibModalInstance;
 	vm.sendData = sendData;
 	vm.hapusData = hapusData;
-	vm.openSecond = openSecondModal;
+	vm.openMapModal = openMapModal;
 	vm.itemData = modalData.itemData;
 	vm.latLng = undefined;
 	vm.itemDataSend = {
@@ -642,7 +689,6 @@ function modalVerifyFacebookController($uibModal, $uibModalInstance, logger, mod
 			file: undefined
 		}
 	};
-	console.log(vm.itemData);
 
 	$scope.upload = function (el) {
 		if (el.files && el.files[0]) {
@@ -704,7 +750,7 @@ function modalVerifyFacebookController($uibModal, $uibModalInstance, logger, mod
 		postSimpanLaporanFacebook().then(function (response) {
 			$uibModalInstance.dismiss();
 			$rootScope.laporanVerifyFacebook();
-			console.log(vm.dataLaporan)
+			alert.alertScope.push({ type: 'info', msg: 'Laporan berhasil di approve' });
 		})
 	}
 	function postSimpanLaporanFacebook() {
@@ -719,7 +765,7 @@ function modalVerifyFacebookController($uibModal, $uibModalInstance, logger, mod
 
 	}
 
-	function openSecondModal() {
+	function openMapModal() {
 		var modalInstance = $uibModal.open({
 			ariaLabelledBy: 'modal-title',
 			ariaDescribedBy: 'modal-body',

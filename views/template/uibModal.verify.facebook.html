@@ -7,19 +7,19 @@
 		<div class="row form-group">
 			<div class="col-lg-12">
 				<label>Nama Pelapor</label>
-				<input type="text" class="form-control" placeholder="Nama Lengkap" ng-model="vm.itemDataSend.nama_pelapor"/>
+				<input type="text" class="form-control" placeholder="Nama Lengkap" ng-model="vm.itemDataSend.nama_pelapor" />
 			</div>
 			<div class="col-xs-6">
 				<label>Email Pelapor</label>
-				<input type="text" class="form-control" placeholder="Email" ng-model="vm.itemDataSend.email_pelapor"/>
+				<input type="text" class="form-control" placeholder="Email" ng-model="vm.itemDataSend.email_pelapor" />
 			</div>
 			<div class="col-xs-6">
 				<label>Nomor HP Pelapor</label>
-				<input type="text" class="form-control" placeholder="Nomor Handphone" ng-model="vm.itemDataSend.nomorhp_pelapor"/>
+				<input type="text" class="form-control" placeholder="Nomor Handphone" ng-model="vm.itemDataSend.nomorhp_pelapor" />
 			</div>
 			<div class="col-lg-12">
 				<label>Alamat Pelapor</label>
-				<input type="text" class="form-control" placeholder="Alamat" ng-model="vm.itemDataSend.alamat_pelapor"/>
+				<input type="text" class="form-control" placeholder="Alamat" ng-model="vm.itemDataSend.alamat_pelapor" />
 			</div>
 			<div class="col-lg-12">
 				<label>Kategori</label>
@@ -47,13 +47,13 @@
 				<label>Tandai Lokasi</label>
 				<div class="input-group">
 					<div class="input-group-btn">
-						<button class="btn btn-primary" ng-click="vm.openSecond()">Map</button>
+						<button class="btn btn-primary" ng-click="vm.openMapModal()">Map</button>
 					</div>
 					<input type="text" class="form-control" placeholder="Latitude, Longitude" ng-model="vm.latLng" readonly />
 				</div>
 			</div>
 			<div class="col-xs-12">
-				<label>Tandai Lokasi</label>
+				<label>Bukti Gambar</label>
 				<input type="file" onchange="angular.element(this).scope().upload(this)" class="form-control" placeholder="Latitude, Longitude" readonly />
 			</div>
 		</div>

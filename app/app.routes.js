@@ -17,7 +17,7 @@ function config($stateProvider, $urlRouterProvider) {
 				templateUrl: 'views/template/header.navSecond.html'
 			},
 			'content': {
-				template: '<main id="main" ui-view="tasks"></div>'
+				template: '<main id="main" ui-view="tasks"></main><div ui-view="alert" id="alert"></div>'
 			}
 		}
 	})
@@ -39,7 +39,12 @@ function config($stateProvider, $urlRouterProvider) {
 				template: '<section id="filter" ui-view="filter"></section><div ui-view="laporan"></div>'
 			},
 			'filter@tasks.laporan': {
-				templateUrl: 'views/template/filter.html'
+				templateUrl: 'views/template/filter.html',
+				controller: 'filterController as vm'
+			},
+			'alert@tasks': {
+				template: '<div uib-alert ng-repeat="alert in vm.alertScope" ng-class="'+"'alert-'" + ' + alert.type" close="vm.closeAlert($index)" dismiss-on-timeout="5000">{{alert.msg}}</div>',
+				controller: 'alertController as vm'
 			}
 		}
 	})
@@ -89,7 +94,11 @@ function config($stateProvider, $urlRouterProvider) {
 				templateUrl: 'views/template/header.navSecond.verify.html'
 			},
 			'content': {
-				template: '<main id="main" ui-view="verify"></div>'
+				template: '<main id="main" ui-view="verify"></main><div ui-view="alert" id="alert"></div>'
+			},
+			'alert@verify': {
+				template: '<div uib-alert ng-repeat="alert in vm.alertScope" ng-class="'+"'alert-'" + ' + alert.type" close="vm.closeAlert($index)" dismiss-on-timeout="5000">{{alert.msg}}</div>',
+				controller: 'alertController as vm'
 			}
 		}
 	})

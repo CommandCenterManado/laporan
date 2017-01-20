@@ -48,7 +48,7 @@
 					<div uib-accordion-group class="panel-warning" heading="Proses">
 						<div class="form-group">
 							<label>Isi Tindakan</label>
-							<textarea class="form-control" placeholder="Laporan" ng-model="vm.itemDataSend.proses.isi_laporan"></textarea>
+							<textarea class="form-control" placeholder="Laporan" ng-model="vm.itemDataSend.proses.tindakan_proses"></textarea>
 							<input type="file" onchange="angular.element(this).scope().uploadProses(this)" class="form-control"/>
 							<label>Estimasi Waktu</label>
 							<div class="row">
@@ -64,7 +64,7 @@
 					<div uib-accordion-group class="panel-success" heading="Selesai">
 						<div class="form-group">
 							<label>Isi Tindakan</label>
-							<textarea class="form-control" placeholder="Laporan" ng-model="vm.itemDataSend.selesai.isi_laporan"></textarea>
+							<textarea class="form-control" placeholder="Laporan" ng-model="vm.itemDataSend.selesai.tindakan_selesai"></textarea>
 							<input type="file" onchange="angular.element(this).scope().uploadSelesai(this)" class="form-control"/>
 						</div>
 					</div>

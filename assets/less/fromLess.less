@@ -129,8 +129,8 @@ body {
 			text-align: center;
 			> li {
 				padding: 20px 15px;
+				float: none;
 				display: inline-block;
-				float: initial;
 				> a {
 					color: @flatBlue-light;
 					font-weight: bold;
@@ -305,6 +305,15 @@ body {
 	}
 	#laporanVerify {
 		padding-top: 25px;
+	}
+}
+#alert {
+	position: fixed;
+	bottom: 25px;
+	left: 25px;
+	width: 350px;
+	.alert:last-child {
+		margin-bottom: 0;
 	}
 }
 .modal {
