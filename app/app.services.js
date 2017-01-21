@@ -3,11 +3,13 @@ angular
 	.service('logger', logger)
 	.factory('dataApi', dataApi)
 	.factory('postDataApi', postDataApi)
+	.factory('userService', userService)
 	.factory('alert', alert);
 
 logger.$inject = ['$log'];
 dataApi.$inject = ['$http', 'logger'];
 postDataApi.$inject = ['$http', 'logger'];
+userService.$inject = ['$http', 'logger'];
 alert.$inject = ['$rootScope'];
 
 function logger($log) {
@@ -31,62 +33,39 @@ function dataApi($http, logger) {
 
 	function getDataLaporan() {
 		return $http.get(baseURL + '/ambil_laporan')
-			.then(getDataLaporanComplete)
-			.catch(getDataLaporanFailed);
-
-		function getDataLaporanComplete(response) {
-			return response.data;
-		}
-		function getDataLaporanFailed(error) {
-			logger.error('Gagal mengambil data');
-		}
+			.then(getSuccess)
+			.catch(getError('Gagal mengambil data Laporan'));
 	}
 	function getDataLaporanKategori() {
 		return $http.get(baseURL + '/ambil_kategori')
-			.then(getDataLaporanKategoriComplete)
-			.catch(getDataLaporanKategoriFailed);
-
-		function getDataLaporanKategoriComplete(response) {
-			return response.data;
-		}
-		function getDataLaporanKategoriFailed(error) {
-			logger.error('Gagal mengambil data');
-		}
+			.then(getSuccess)
+			.catch(getError('Gagal mengambil data Kategori Laporan'));
 	}
 	function getDataLaporanKecamatan() {
 		return $http.get(baseURL + '/ambil_kecamatan')
-			.then(getDataLaporanKecamatanComplete)
-			.catch(getDataLaporanKecamatanFailed);
-
-		function getDataLaporanKecamatanComplete(response) {
-			return response.data;
-		}
-		function getDataLaporanKecamatanFailed(error) {
-			logger.error('Gagal mengambil data');
-		}
+			.then(getSuccess)
+			.catch(getError('Gagal mengambil data Laporan Kecamatan'));
 	}
 	function getDataLaporanKelurahan(idKecamatan) {
 		return $http.get(baseURL + '/ambil_kelurahan/' + idKecamatan)
-			.then(getDataLaporanKelurahanComplete)
-			.catch(getDataLaporanKelurahanFailed);
-
-		function getDataLaporanKelurahanComplete(response) {
-			return response.data;
-		}
-		function getDataLaporanKelurahanFailed(error) {
-			logger.error('Gagal mengambil data');
-		}
+			.then(getSuccess)
+			.catch(getError('Gagal mengambil data Laporan Kelurahan'));
 	}
 	function getDataLaporanVerify(type) {
 		return $http.get(baseURL + '/ambil_laporan_publik/' + type)
-			.then(getDataLaporanVerifyComplete)
-			.catch(getDataLaporanVerifyFailed);
+			.then(getSuccess)
+			.catch(getError('Gagal mengambil data Laporan Verifikasi: ' + type));
+	}
 
-		function getDataLaporanVerifyComplete(response) {
-			return response.data;
-		}
-		function getDataLaporanVerifyFailed(error) {
-			logger.error('Gagal mengambil data')
+	//function Handler
+
+	function getSuccess(response) {
+		return response.data;
+	}
+	function getError(error) {
+		return function () {
+			logger.error(error);
+			return { success: false, message: error }
 		}
 	}
 }
@@ -102,47 +81,71 @@ function postDataApi($http, logger) {
 
 	function postSimpanLaporan(data) {
 		return $http.post(baseURL + '/simpan_laporan', data)
-			.then(postSimpanLaporanComplete)
-			.catch(postSimpanLaporanFailed);
-
-		function postSimpanLaporanComplete(response) {
-			return response.data;
-		}
-		function postSimpanLaporanFailed(error) {
-			logger.error('Gagal mengirim data');
-		}
+			.then(postSuccess)
+			.catch(postError('Gagal mengirim data Verifiksi Laporan'));
 	}
 	function postApproveLaporan(data) {
 		return $http.post(baseURL + '/approve_laporan', data)
-			.then(postApproveLaporanComplete)
-			.catch(postApproveLaporanFailed);
-
-		function postApproveLaporanComplete(response) {
-			return response.data;
-		}
-		function postApproveLaporanFailed(error) {
-			logger.error('Gagal mengirim data');
-		}
+			.then(postSuccess)
+			.catch(postError('Gagal mengirim data Verifiksi Laporan'));
 	}
 	function postUrusLaporan(data) {
 		return $http.post(baseURL + '/urus_laporan', data)
-			.then(postUrusLaporanComplete)
-			.catch(postUrusLaporanFailed);
+			.then(postSuccess)
+			.catch(postError('Gagal mengirim data Laporan'));
+	}
 
-		function postUrusLaporanComplete(response) {
-			return response.data;
+	//function Handler
+
+	function postSuccess(response) {
+		return response.data;
+	}
+	function postError(error) {
+		return function () {
+			logger.error(error);
+			return { success: false, message: error }
 		}
-		function postUrusLaporanFailed(error) {
-			logger.error('Gagal mengirim data');
-		}
+	}
+}
+
+function userService($http, logger) {
+	var baseURL = 'http://edgarjeremy.com/index.php/api';
+	return {
+		login: login,
+		check: check,
+		logout: logout
+	}
+
+	function login(username, password) {
+		return $http.post(baseURL + '/login', { 'username': username, 'password': password })
+			.then(successHandle)
+			.catch(errorHandle)
+	}
+
+	function check() {
+		return $http.get(baseURL + '/cek_user_login')
+			.then(successHandle)
+			.catch(errorHandle)
+	}
+
+	function logout() {
+		return $http.get(baseURL + '/logout')
+			.then(successHandle)
+			.catch(errorHandle)
+	}
+
+	function successHandle(response) {
+		return response.data;
+	}
+	function errorHandle(response) {
+		return function () {
+			logger.error('Gagal' + response);
+		};
 	}
 }
 
 function alert() {
 	return {
-		alertScope: [
-			{ type: 'info', msg: 'testInfo' },
-			{ type: 'danger', msg: 'testDanger' }
-		]
+		alertScope: []
 	}
 }

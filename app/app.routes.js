@@ -7,11 +7,19 @@ function config($stateProvider, $urlRouterProvider) {
 	$urlRouterProvider.otherwise('/')
 
 	$stateProvider
+	.state('login', {
+		url: '/login',
+		views: {
+			'content': {
+				templateUrl: 'login.html',
+				controller: 'loginController as vm'
+			}
+		}
+	})
 	.state('tasks',{
 		views: {
 			'header': {
-				templateUrl: 'views/template/header.html',
-				controller: 'headerController as header'
+				templateUrl: 'views/template/header.html'
 			},
 			'navSecond@tasks': {
 				templateUrl: 'views/template/header.navSecond.html'

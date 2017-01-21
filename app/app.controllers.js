@@ -1,7 +1,8 @@
 angular
 	.module('app')
-	.controller('headerController', headerController)
+
 	.controller('alertController', alertController)
+	.controller('loginController', loginController)
 	.controller('dashboardController', dashboardController)
 	.controller('filterController', filterController)
 	.controller('laporanListController', laporanListController)
@@ -11,23 +12,90 @@ angular
 	.controller('laporanMapController', laporanMapController)
 	.controller('modalController', modalController)
 	.controller('modalVerifyWebController', modalVerifyWebController)
-	.controller('modalVerifyFacebookController', modalVerifyFacebookController);
+	.controller('modalVerifyFacebookController', modalVerifyFacebookController)
+	; // endl
 
-alertController.$inject = ['alert', '$rootScope'];
-dashboardController.$inject = ['dataApi', 'logger'];
-filterController.$inject = ['dataApi', 'logger'];
-laporanListController.$inject = ['$uibModal', 'dataApi', 'logger', '$rootScope'];
-laporanCardController.$inject = ['$uibModal', 'dataApi', 'logger', '$rootScope'];
-laporanMapController.$inject = ['$uibModal', 'dataApi', 'logger', '$rootScope'];
-laporanVerifyWebController.$inject = ['$uibModal', 'dataApi', 'logger', '$rootScope'];
-laporanVerifyFacebookController.$inject = ['$uibModal', 'dataApi', 'logger', '$rootScope', '$http'];
-modalController.$inject = ['$uibModal', '$uibModalInstance', 'logger', 'modalData', '$scope', 'postDataApi', '$rootScope', 'alert'];
-modalVerifyWebController.$inject = ['$uibModal', '$uibModalInstance', 'logger', 'modalData', 'dataApi', 'postDataApi', '$http', '$scope', '$rootScope', 'alert'];
-modalVerifyFacebookController.$inject = ['$uibModal', '$uibModalInstance', 'logger', 'modalData', 'dataApi', 'postDataApi', '$http', '$scope', '$rootScope', 'alert'];
+alertController.$inject = [
+	'alert',
+	'$rootScope'
+];
+loginController.$inject = [
+	'userService'
+]
+dashboardController.$inject = [
+	'dataApi',
+	'logger'
+];
+filterController.$inject = [
+	'dataApi',
+	'logger'
+];
+laporanListController.$inject = [
+	'$uibModal',
+	'dataApi',
+	'logger',
+	'$rootScope'
+];
+laporanCardController.$inject = [
+	'$uibModal',
+	'dataApi',
+	'logger',
+	'$rootScope'
+];
+laporanMapController.$inject = [
+	'$uibModal',
+	'dataApi',
+	'logger',
+	'$rootScope'
+];
+laporanVerifyWebController.$inject = [
+	'$uibModal',
+	'dataApi',
+	'logger',
+	'$rootScope'
+];
+laporanVerifyFacebookController.$inject = [
+	'$uibModal',
+	'dataApi',
+	'logger',
+	'$rootScope',
+	'$http'
+];
+modalController.$inject = [
+	'$uibModal',
+	'$uibModalInstance',
+	'logger',
+	'modalData',
+	'$scope',
+	'postDataApi',
+	'$rootScope',
+	'alert'
+];
+modalVerifyWebController.$inject = [
+	'$uibModal',
+	'$uibModalInstance',
+	'logger',
+	'modalData',
+	'dataApi',
+	'postDataApi',
+	'$http',
+	'$scope',
+	'$rootScope',
+	'alert'
+];
+modalVerifyFacebookController.$inject = [
+	'$uibModal',
+	'$uibModalInstance',
+	'logger',
+	'modalData',
+	'dataApi',
+	'postDataApi',
+	'$http',
+	'$scope',
+	'$rootScope',
+	'alert'
+];
 
-function headerController() {
-
-};
 function alertController(alert, $rootScope) {
 	var vm = this;
 	vm.alertScope = alert.alertScope;
@@ -36,6 +104,41 @@ function alertController(alert, $rootScope) {
 	function closeAlert(index) {
 		vm.alertScope.splice(index, 1);
 	}
+}
+function loginController(userService){
+	var vm = this;
+	vm.login = loginAuth;
+	vm.check = checkAuth;
+	vm.logout = logoutAuth;
+	vm.itemDataSend = {
+		'username': undefined,
+		'password': undefined
+	};
+
+	function loginAuth(){
+		return userService.login(vm.itemDataSend.username, vm.itemDataSend.password)
+		.then(function(response){
+			var loginAuth = response.data;
+			return loginAuth;
+		})
+	}
+
+	function checkAuth(){
+		return userService.check()
+		.then(function(response){
+			var checknAuth = response.data;
+			return checkAuth;
+		})
+	}
+
+	function logoutAuth(){
+		return userService.logout()
+		.then(function(response){
+			var logoutAuth = response.data;
+			return logoutAuth;
+		})
+	}
+	
 }
 
 function dashboardController(dataApi, logger) {
@@ -574,7 +677,7 @@ function modalController($uibModal, $uibModalInstance, logger, modalData, $scope
 			if (response.status == 'ok') {
 				alert.alertScope.push({ type: 'info', msg: 'Laporan di tangani' });
 			} else {
-				alert.alertScope.push({type: 'danger', msg: 'Laporan tidak di tangani'})
+				alert.alertScope.push({ type: 'danger', msg: 'Laporan tidak di tangani' })
 			}
 		})
 	}
