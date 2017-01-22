@@ -37,6 +37,8 @@ function config($stateProvider, $urlRouterProvider) {
 				}
 			}
 		})
+
+		// tasks state
 		.state('tasks', {
 			views: {
 				'header': {
@@ -117,6 +119,8 @@ function config($stateProvider, $urlRouterProvider) {
 				}
 			}
 		})
+
+		// verify state
 		.state('verify', {
 			views: {
 				'header': {
@@ -183,14 +187,6 @@ function config($stateProvider, $urlRouterProvider) {
 				}
 			}
 		})
-		.state('verify.qlue', {
-			url: '/verify/qlue',
-			views: {
-				'verify': {
-					template: '<h1>Qlue</h1>'
-				}
-			}
-		})
 		.state('verify.sms', {
 			url: '/verify/sms',
 			views: {
@@ -204,6 +200,56 @@ function config($stateProvider, $urlRouterProvider) {
 			views: {
 				'verify': {
 					template: '<h1>Telephone</h1>'
+				}
+			}
+		})
+
+		// setting state
+		.state('setting', {
+			views: {
+				'header': {
+					templateUrl: 'views/template/header.html',
+					controller: 'headerController as vm'
+				},
+				'navSecond@setting': {
+					templateUrl: 'views/template/header.navSecond.setting.html'
+				},
+				'content': {
+					template: '<main id="main" ui-view=""></main><div ui-view="alert" id="alert"></div>'
+				},
+				'@setting': {
+					template: '<section id="filter" ui-view="filter"></section><div ui-view="setting"></div>'
+				},
+				'filter@setting': {
+					templateUrl: 'views/template/filter.html',
+					controller: 'filterController as vm'
+				},
+				'loader': {
+					templateUrl: 'views/template/loading.html'
+				}
+			}
+		})
+		.state('setting.kategori', {
+			url: '/setting/kategori',
+			data: {
+				pageTitle: "Pengaturan Kategori"
+			},
+			views: {
+				'setting': {
+					templateUrl: 'views/setting.kategori.html',
+					controller: 'settingKategoriController as vm'
+				}
+			}
+		})
+		.state('setting.user', {
+			url: '/setting/user',
+			data: {
+				pageTitle: "Pengaturan User"
+			},
+			views: {
+				'setting': {
+					templateUrl: 'views/setting.user.html',
+					controller: 'settingKategoriController as vm'
 				}
 			}
 		})

@@ -1,3 +1,5 @@
+'use strict';
+
 angular
 	.module('app')
 	.service('logger', logger)
@@ -27,7 +29,7 @@ function logger($log) {
 // var baseURL = 'http://10.11.12.242/belajar/backend/index.php/api';
 var baseURL = 'http://localhost/belajar/backend/index.php/api';
 
-function dataApi($http, loggerm, loading) {
+function dataApi($http, logger, loading) {
 	return {
 		getDataLaporan: getDataLaporan,
 		getDataLaporanKategori: getDataLaporanKategori,

@@ -1,3 +1,5 @@
+'use strict';
+
 angular
 	.module('app')
 
@@ -185,6 +187,7 @@ function dashboardController(dataApi, logger) {
 			name: 'Selesai',
 			data: (function () {
 				var data = [];
+				var i;
 				for (i = 0; i < 12; i++) {
 					data.push([i + Math.random(1) * 1111111111]);
 				}
@@ -195,6 +198,7 @@ function dashboardController(dataApi, logger) {
 			name: 'Diproses',
 			data: (function () {
 				var data = [];
+				var i;
 				for (i = 0; i < 12; i++) {
 					data.push([i + Math.random(1) * 2111111111]);
 				}
@@ -205,6 +209,7 @@ function dashboardController(dataApi, logger) {
 			name: 'Dilapor',
 			data: (function () {
 				var data = [];
+				var i;
 				for (i = 0; i < 12; i++) {
 					data.push([i + Math.random(1) * 3111111111]);
 				}
