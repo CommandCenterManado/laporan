@@ -2,11 +2,19 @@
 	<div class="form-group">
 		<div class="container">
 			<div class="row">
-				<div class="col-sm-6 col-sm-offset-3 filter-item">
-					<select class="form-control">
-						<option disabled selected style="display: none;">Jenis Laporan</option>
-						<option>Lorem ipsum</option>
+				<div class="col-sm-6 filter-item">
+					<select class="form-control" ng-model="vm.filter.jenis_laporan">
+						<option value="">Jenis Laporan</option>
+						<option value="web">Web</option>
+						<option value="android">Android</option>
+						<option value="twitter">Twitter</option>
+						<option value="facebook">Facebook</option>
+						<option value="sms">SMS</option>
+						<option value="telepon">Telephone</option>
 					</select>
+				</div>
+				<div class="col-sm-2 col-sm-offset-4 filter-item">
+					<input class="form-control" type="number" placeholder="Limit" />
 				</div>
 			</div>
 		</div>
@@ -15,27 +23,29 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-2 filter-item">
-					<select class="form-control">
-						<option disabled selected style="display: none;">Status Laporan</option>
-						<option>Lorem Ipsum</option>
+					<select class="form-control" ng-model="vm.filter.status_laporan">
+						<option value>Status Laporan</option>
+						<option value="dilapor">Dilapor</option>
+						<option value="proses">Proses</option>
+						<option value="selesai">Selesai</option>
 					</select>
 				</div>
 				<div class="col-sm-2 filter-item">
-					<select class="form-control">
-						<option disabled selected style="display: none;">Kategori/SKPD</option>
-						<option>Lorem Ipsum</option>
+					<select class="form-control" ng-model="vm.filter.idkategori_laporan">
+						<option value="">Kategori/SKPD</option>
+						<option ng-repeat="kategori in vm.dataFilterKategori" value="{{kategori.idkategori_laporan}}">{{kategori.nama_kategori}}</option>
 					</select>
 				</div>
 				<div class="col-sm-2 filter-item">
-					<select class="form-control">
-						<option disabled selected style="display: none;">Kecamatan</option>
-						<option>Lorem Ipsum</option>
+					<select class="form-control" ng-change="vm.getDataFilterKelurahan(vm.filter.idkecamatan)" ng-model="vm.filter.idkecamatan">
+						<option disabled selected value="" style="display: none;" ng-model="vm.filter.idkecamatan">Kecamatan</option>
+						<option ng-repeat="kecamatan in vm.dataFilterKecamatan" value="{{kecamatan.idkecamatan}}">{{kecamatan.nama_kecamatan}}</option>
 					</select>
 				</div>
 				<div class="col-sm-2 filter-item">
-					<select class="form-control">
-						<option disabled selected style="display: none;">Kelurahan</option>
-						<option>Lorem Ipsum</option>
+					<select class="form-control" ng-model="vm.filter.idkelurahan">
+						<option disabled selected style="display: none;" value="">Kelurahan</option>
+						<option ng-repeat="kelurahan in vm.dataFilterKelurahan" value="{{kelurahan.idkelurahan}}">{{kelurahan.nama_kelurahan}}</option>
 					</select>
 				</div>
 				<div class="col-sm-2 filter-item">

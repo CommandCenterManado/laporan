@@ -18,8 +18,18 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="laporan in vmList.dataLaporan">
-						<td><a href ng-click="vmList.openModal(laporan)"><h2 class="no-margin">{{laporan.nomor_laporan}}</h2></a></td>
+					<tr ng-repeat="laporan in vmList.dataLaporan | 
+					filter: {'jenis_laporan': filter.jenis_laporan || undefined} : true | 
+					filter: {'status': filter.status_laporan || undefined} : true | 
+					filter: {'idkategori_laporan': filter.idkategori_laporan || undefined} : true |
+					filter: {'idkecamatan': filter.idkecamatan || undefined} : true |
+					filter: {'idkelurahan': filter.idkelurahan || undefined}: true
+					">
+						<td>
+							<a href ng-click="vmList.openModal(laporan)">
+								<h2 class="no-margin">{{laporan.nomor_laporan}}</h2>
+							</a>
+						</td>
 						<td>{{laporan.waktu_laporan}}</td>
 						<td>
 							<i ng-repeat="icon in laporan.icon" class="{{icon}}"></i>
@@ -29,9 +39,9 @@
 								<div class="table-card-bordered-summary-wrapper-level-2">{{laporan.isi_laporan}}</div>
 							</div>
 						</td>
-						<td class="table-card-bordered-check-box"><i ng-if="laporan.status[0] == true" class="fa fa-check"></i></td>
-						<td class="table-card-bordered-check-box"><i ng-if="laporan.status[1] == true" class="fa fa-check"></i></td>
-						<td class="table-card-bordered-check-box"><i ng-if="laporan.status[2] == true" class="fa fa-check"></i></td>
+						<td class="table-card-bordered-check-box"><i ng-if="laporan.status_baru[0] == true" class="fa fa-check"></i></td>
+						<td class="table-card-bordered-check-box"><i ng-if="laporan.status_baru[1] == true" class="fa fa-check"></i></td>
+						<td class="table-card-bordered-check-box"><i ng-if="laporan.status_baru[2] == true" class="fa fa-check"></i></td>
 						<td>Lorem Ipsum</td>
 					</tr>
 				</tbody>
