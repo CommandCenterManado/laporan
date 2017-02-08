@@ -1,7 +1,11 @@
+'use strict';
+
 angular
 	.module('app')
-	.controller('headerController', headerController)
+
 	.controller('alertController', alertController)
+	.controller('headerController', headerController)
+	.controller('loginController', loginController)
 	.controller('dashboardController', dashboardController)
 	.controller('filterController', filterController)
 	.controller('laporanListController', laporanListController)
@@ -11,23 +15,101 @@ angular
 	.controller('laporanMapController', laporanMapController)
 	.controller('modalController', modalController)
 	.controller('modalVerifyWebController', modalVerifyWebController)
-	.controller('modalVerifyFacebookController', modalVerifyFacebookController);
+	.controller('modalVerifyFacebookController', modalVerifyFacebookController)
+	; // endl
 
-alertController.$inject = ['alert', '$rootScope'];
-dashboardController.$inject = ['dataApi', 'logger'];
-filterController.$inject = ['dataApi', 'logger'];
-laporanListController.$inject = ['$uibModal', 'dataApi', 'logger', '$rootScope'];
-laporanCardController.$inject = ['$uibModal', 'dataApi', 'logger', '$rootScope'];
-laporanMapController.$inject = ['$uibModal', 'dataApi', 'logger', '$rootScope'];
-laporanVerifyWebController.$inject = ['$uibModal', 'dataApi', 'logger', '$rootScope'];
-laporanVerifyFacebookController.$inject = ['$uibModal', 'dataApi', 'logger', '$rootScope', '$http'];
-modalController.$inject = ['$uibModal', '$uibModalInstance', 'logger', 'modalData', '$scope', 'postDataApi', '$rootScope', 'alert'];
-modalVerifyWebController.$inject = ['$uibModal', '$uibModalInstance', 'logger', 'modalData', 'dataApi', 'postDataApi', '$http', '$scope', '$rootScope', 'alert'];
-modalVerifyFacebookController.$inject = ['$uibModal', '$uibModalInstance', 'logger', 'modalData', 'dataApi', 'postDataApi', '$http', '$scope', '$rootScope', 'alert'];
+alertController.$inject = [
+	'alert',
+	'$rootScope'
+];
+headerController.$inject = [
+	'userService',
+	'$location'
+];
+loginController.$inject = [
+	'userService',
+	'$location'
+]
+dashboardController.$inject = [
+	'dataApi',
+	'logger'
+];
+filterController.$inject = [
+	'dataApi',
+	'logger',
+	'share',
+	'$rootScope'
+];
+laporanListController.$inject = [
+	'$uibModal',
+	'dataApi',
+	'logger',
+	'$rootScope',
+	'$filter',
+	'share'
+];
+laporanCardController.$inject = [
+	'$uibModal',
+	'dataApi',
+	'logger',
+	'$rootScope'
+];
+laporanMapController.$inject = [
+	'$uibModal',
+	'dataApi',
+	'logger',
+	'$rootScope'
+];
+laporanVerifyWebController.$inject = [
+	'$uibModal',
+	'dataApi',
+	'logger',
+	'$rootScope'
+];
+laporanVerifyFacebookController.$inject = [
+	'$uibModal',
+	'dataApi',
+	'logger',
+	'$rootScope',
+	'$http',
+	'loading'
+];
+modalController.$inject = [
+	'$uibModal',
+	'$uibModalInstance',
+	'logger',
+	'modalData',
+	'$scope',
+	'postDataApi',
+	'$rootScope',
+	'alert'
+];
+modalVerifyWebController.$inject = [
+	'$uibModal',
+	'$uibModalInstance',
+	'logger',
+	'modalData',
+	'dataApi',
+	'postDataApi',
+	'$http',
+	'$scope',
+	'$rootScope',
+	'alert'
+];
+modalVerifyFacebookController.$inject = [
+	'$uibModal',
+	'$uibModalInstance',
+	'logger',
+	'modalData',
+	'dataApi',
+	'postDataApi',
+	'$http',
+	'$scope',
+	'$rootScope',
+	'alert',
+	'loading'
+];
 
-function headerController() {
-
-};
 function alertController(alert, $rootScope) {
 	var vm = this;
 	vm.alertScope = alert.alertScope;
@@ -36,6 +118,37 @@ function alertController(alert, $rootScope) {
 	function closeAlert(index) {
 		vm.alertScope.splice(index, 1);
 	}
+}
+function headerController(userService, $location) {
+	var vm = this;
+
+	vm.logout = logout;
+
+	function logout() {
+		return userService.logout().then(function () {
+			$location.path('/login');
+		})
+	}
+}
+function loginController(userService, $location) {
+	var vm = this;
+	vm.login = loginAuth;
+	vm.itemDataSend = {
+		'username': undefined,
+		'password': undefined
+	};
+
+	function loginAuth() {
+		return userService.login(vm.itemDataSend.username, vm.itemDataSend.password)
+			.then(function (response) {
+				if (response.status == 'ok') {
+					$location.path('/dashboard')
+					var loginAuth = response.data;
+					return loginAuth;
+				}
+			})
+	}
+
 }
 
 function dashboardController(dataApi, logger) {
@@ -74,6 +187,7 @@ function dashboardController(dataApi, logger) {
 			name: 'Selesai',
 			data: (function () {
 				var data = [];
+				var i;
 				for (i = 0; i < 12; i++) {
 					data.push([i + Math.random(1) * 1111111111]);
 				}
@@ -84,6 +198,7 @@ function dashboardController(dataApi, logger) {
 			name: 'Diproses',
 			data: (function () {
 				var data = [];
+				var i;
 				for (i = 0; i < 12; i++) {
 					data.push([i + Math.random(1) * 2111111111]);
 				}
@@ -94,6 +209,7 @@ function dashboardController(dataApi, logger) {
 			name: 'Dilapor',
 			data: (function () {
 				var data = [];
+				var i;
 				for (i = 0; i < 12; i++) {
 					data.push([i + Math.random(1) * 3111111111]);
 				}
@@ -221,29 +337,89 @@ function dashboardController(dataApi, logger) {
 			enabled: false
 		}
 	};
-};
-function filterController(dataApi, logger) {
-	var vm = this;
 }
-function laporanListController($uibModal, dataApi, logger, $rootScope) {
+function filterController(dataApi, logger, share, $rootScope) {
+	var vm = this;
+	vm.filter = {
+		jenis_laporan: undefined,
+		status_laporan: undefined,
+		idkategori_laporan: undefined,
+		idkecamatan: undefined,
+		idkelurahan: undefined,
+		dari_tanggal: undefined,
+		sampai_tanggal: undefined
+	};
+
+	vm.resetFilter = function () {
+		$rootScope.filter = {
+			jenis_laporan: undefined,
+			status_laporan: undefined,
+			idkategori_laporan: undefined,
+			idkecamatan: undefined,
+			idkelurahan: undefined,
+			dari_tanggal: undefined,
+			sampai_tanggal: undefined
+		};
+		console.log($rootScope.filter);
+	}
+
+	$rootScope.filter = vm.filter;
+
+	activate();
+
+	function activate() {
+		getFilterKategori().then(function (response) {
+			vm.dataFilterKategori = response;
+		})
+		getFilterKecamatan().then(function (response) {
+			console.log(response);
+			vm.dataFilterKecamatan = response;
+		})
+		vm.getDataFilterKelurahan = getDataFilterKelurahan;
+
+		function getDataFilterKelurahan(idKecamatan) {
+			getFilterKelurahan(idKecamatan).then(function (response) {
+				vm.dataFilterKelurahan = response;
+			})
+		}
+	}
+	function getFilterKategori() {
+		return dataApi.getDataLaporanKategori()
+			.then(function (response) {
+				return response;
+			})
+	}
+	function getFilterKecamatan() {
+		return dataApi.getDataLaporanKecamatan()
+			.then(function (response) {
+				return response;
+			})
+	}
+	function getFilterKelurahan(idKecamatan) {
+		return dataApi.getDataLaporanKelurahan(idKecamatan)
+			.then(function (response) {
+				return response;
+			})
+	}
+}
+function laporanListController($uibModal, dataApi, logger, $rootScope, $filter, share) {
 	var vm = this;
 	vm.openModal = openModal;
-
-	$rootScope.laporanActivate = activate;
 
 	activate();
 
 	function activate() {
 		return getDataLaporan().then(function (data) {
+			console.log(data);
 			vm.dataLaporan = data;
 
 			angular.forEach(vm.dataLaporan, function (value, key) {
 				if (value.status == 'dilapor') {
-					value.status = [true, false, false];
+					value.status_baru = [true, false, false];
 				} else if (value.status == 'proses') {
-					value.status = [false, true, false];
+					value.status_baru = [false, true, false];
 				} else if (value.status == 'selesai') {
-					value.status = [false, false, true];
+					value.status_baru = [false, false, true];
 				} else {
 					logger.error('Kesalahan Data ' + value.status);
 				}
@@ -427,7 +603,7 @@ function laporanVerifyWebController($uibModal, dataApi, logger, $rootScope) {
 		});
 	}
 }
-function laporanVerifyFacebookController($uibModal, dataApi, logger, $rootScope, $http) {
+function laporanVerifyFacebookController($uibModal, dataApi, logger, $rootScope, $http, loading) {
 	var vm = this;
 	vm.openModal = openModal;
 	vm.itemDataSend = {
@@ -574,7 +750,7 @@ function modalController($uibModal, $uibModalInstance, logger, modalData, $scope
 			if (response.status == 'ok') {
 				alert.alertScope.push({ type: 'info', msg: 'Laporan di tangani' });
 			} else {
-				alert.alertScope.push({type: 'danger', msg: 'Laporan tidak di tangani'})
+				alert.alertScope.push({ type: 'danger', msg: 'Laporan tidak di tangani' })
 			}
 		})
 	}
@@ -663,7 +839,7 @@ function modalVerifyWebController($uibModal, $uibModalInstance, logger, modalDat
 		}
 	}
 }
-function modalVerifyFacebookController($uibModal, $uibModalInstance, logger, modalData, dataApi, postDataApi, $http, $scope, $rootScope, alert) {
+function modalVerifyFacebookController($uibModal, $uibModalInstance, logger, modalData, dataApi, postDataApi, $http, $scope, $rootScope, alert, loading) {
 	var vm = this;
 	vm.modalInstance = $uibModalInstance;
 	vm.sendData = sendData;
@@ -718,8 +894,9 @@ function modalVerifyFacebookController($uibModal, $uibModalInstance, logger, mod
 		});
 		vm.dataKelurahan = dataKelurahan
 
-		function dataKelurahan(idKecamtan) {
-			getDataLaporanKelurahan(idKecamtan).then(function (data) {
+		function dataKelurahan(idKecamatan) {
+			console.log(idKecamatan);
+			getDataLaporanKelurahan(idKecamatan).then(function (data) {
 				vm.dataLaporanKelurahan = data;
 			});
 		};
@@ -738,8 +915,8 @@ function modalVerifyFacebookController($uibModal, $uibModalInstance, logger, mod
 				return dataLaporanKecamatan;
 			})
 	}
-	function getDataLaporanKelurahan(idKecamtan) {
-		return dataApi.getDataLaporanKelurahan(idKecamtan)
+	function getDataLaporanKelurahan(idKecamatan) {
+		return dataApi.getDataLaporanKelurahan(idKecamatan)
 			.then(function (data) {
 				var dataLaporanKelurahan = data;
 				return dataLaporanKelurahan;

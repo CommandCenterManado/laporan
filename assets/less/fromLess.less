@@ -1,3 +1,5 @@
+// out: ../css/fromLess.css, compress: false, sourceMap: true
+
 /*
 *	Kalo mo styling jangan ubah di sini, ubah di 
 *	custom-fromLess.css
@@ -28,6 +30,7 @@ body {
 .no-margin {
 	margin: 0;
 }
+
 .progress {
 	background-color: fade(black, 15%);
 	height: 5px;
@@ -307,6 +310,70 @@ body {
 		padding-top: 25px;
 	}
 }
+#loading {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 9999;
+	background-color: fade(@flatWhite, 50%);
+	.loading-wrapper {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		.translate(-50%,-50%);
+		.loading-container {
+			position: relative;
+			span {
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background-image: url(../img/logo_manado.png);
+				background-position: bottom;
+				z-index: 1;
+				-webkit-animation: imgLoading 6s linear infinite;
+				animation: imgLoading 6s linear infinite;
+			}
+			img {
+				.filter-grayscale(100%);
+				opacity: 0.25;
+				height: auto;
+				width: 100%;
+			}
+		}
+	}
+}
+@-webkit-keyframes imgLoading {
+	0% {
+		height: 0;
+		opacity: 1;
+	}
+	90% {
+		height: 100%;
+		opacity: 1;
+	}
+	100% {
+		height: 100%;
+		opacity: 0;
+	}
+}
+@keyframes imgLoading {
+	0% {
+		height: 0;
+		opacity: 1;
+	}
+	90% {
+		height: 100%;
+		opacity: 1;
+	}
+	100% {
+		height: 100%;
+		opacity: 0;
+	}
+}
 #alert {
 	position: fixed;
 	bottom: 25px;
@@ -314,6 +381,85 @@ body {
 	width: 350px;
 	.alert:last-child {
 		margin-bottom: 0;
+	}
+}
+#login {
+	.form-group {
+		label {
+			color: @flatGrey-light;
+			font-size: 0.8rem;
+			font-weight: normal;
+			margin: 0;
+			line-height: 1;
+		}
+		.form-control {
+			border: none;
+			border-bottom: 1px solid @flatSilver;
+			background-color: transparent;
+			border-radius: 0;
+			line-height: 1;
+			height: 3rem;
+			padding: 0;
+			font-size: 1rem;
+			margin-bottom: 20px;
+			.box-shadow(none);
+			&[type="file"]{
+				position: relative;
+				padding: 0.7rem 0;
+				&::-webkit-file-upload-button {
+					visibility: hidden;
+				}
+				&:after {
+					position: absolute;
+					top: 0;
+					left: 0;
+					text-transform: uppercase;
+					content: "File";
+					color: white;
+					padding: 1rem 2rem;
+					font-size: 1rem;
+					background-color: @flatGrey-light;
+					&:hover {
+						cursor: pointer;
+					}
+				}
+			}
+			&[disabled] {
+				.placeholder(fade(black, 15%));
+				color: fade(black, 35%);
+				border-bottom: 1px dotted @flatSilver;
+			}
+			&[readonly] {
+				border-bottom: 1px dotted @flatSilver;
+			}
+		}
+		textarea.form-control {
+			resize: vertical;
+			line-height: 1.5;
+			min-height: 10rem;
+			padding: 0.8rem 0 1.6rem 0;
+		}
+		.input-group {
+			margin-bottom: 20px;
+			.input-group-addon {
+				border: none;
+				background-color: transparent;
+				padding: 0 1rem;
+			}
+			.input-group-btn {
+				button {
+					height: 3rem;
+					padding: 0 1rem;
+					border: none;
+					border-radius: 0;
+					margin-right: 10px;
+					text-transform: uppercase;
+				}
+			}
+			.form-control {
+				margin-bottom: 0;
+			}
+		}
 	}
 }
 .modal {

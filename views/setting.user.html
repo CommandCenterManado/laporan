@@ -1,195 +1,29 @@
-<!DOCTYPE html>
-<html>
-<head>
-
-	<meta charset="utf-8"/>
-
-	<title>Dashboard</title>
-
-	<!-- Font Awesome -->
-	<link rel="stylesheet" type="text/css" href="dist/font-awesome/css/font-awesome.min.css">
-	<!-- Bootstrap -->
-	<link rel="stylesheet" type="text/css" href="dist/bootstrap/css/bootstrap.min.css">
-	<!-- Main CSS -->
-	<link rel="stylesheet" type="text/css" href="css/fromLess.css">
-	<!-- Custom Main CSS -->
-	<link rel="stylesheet" type="text/css" href="css/custom-fromLess.css">
-
-</head>
-<body>
-	<header id="header">
-		<div class="site-info-container">
-			<h1 class="site-info-left">Pemerinta</h1>
-			<img class="site-info-logo" src="img/logo_manado.png"/>
-			<h1 class="site-info-right">Kota Manado</h1>
-		</div>
-		<nav class="navbar navbar-default navbar-main">
-			<div class="container-fluid">
-				<ul class="nav navbar-nav">
-					<li class="dropdown-split-left"><a href="index.html">Dashboard</a></li>
-					<li class="dropdown" id="dropdownDashboardChange">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-							<i class="fa fa-map fa-lg"></i>
-							<ul class="dropdown-menu">
-								<li><a href="#"><i class="fa fa-th-list"></i> Dashboard List</a></li>
-								<li><a href="dashboard-card.html"><i class="fa fa-th-large"></i> Dashboard Card</a></li>
-								<li><a href="#"><i class="fa fa-map"></i> Dashboard Map</a></li>
-							</ul>
-						</a>
-					</li>
-					<li><a href="#">Halaman Verifikasi</a></li>
-					<li><a href="#">Pengaturan Kategori</a></li>
-					<li><a href="#">Pengaturan Pengguna</a></li>
-				</ul>
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#"><i class="fa fa-sign-out fa-lg"></i></a></li>
-				</ul>
-				<div class="navbar-header navbar-right">
-					<span class="navbar-brand">Command Center</span>
-				</div>
-			</div>
-		</nav>
-	</header>
-
-	<main id="main">
-		<section id="filter">
-			<form>
-				<div class="form-group">
-					<div class="container">
-						<div class="row">
-							<div class="col-lg-4 col-lg-offset-4 filter-item">
-								<input class="form-control" type="text" name="" placeholder="Cari" />
-							</div>
-							<div class="col-lg-2 filter-item">
-								<div class="btn-group">
-									<button type="submit" class="btn btn-primary">Filter</button>
-									<button type="reset" class="btn btn-danger"><i class="fa fa-refresh fa-lg"></i></button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</form>
-		</section>
-		<section id="dashboard-list">
-			<div class="container">
-				<div class="panel panel-default panel-card-table">
-					<table class="table table-bordered">
-						<thead>
-							<tr>
-								<th>Nama Pengguna</th>
-								<th>Posisi</th>
-								<th>Jumlah Laporan</th>
-								<th>
-									<button type="button" class="btn btn-primary">Tambah User</button>
-								</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>Lorem Ipsum</td>
-								<td>Dolor Sit Amet</td>
-								<td>120</td>
-								<td>
-									<button type="button" class="btn btn-default">Edit</button>
-									<button type="button" class="btn btn-danger">Hapus</button>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</section>
-	</main>
-	<div id="forInfoModal" class="modal fade" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<form>
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4 class="modal-title">9837</h4>
-					</div>
-					<div class="modal-body">
-						<table class="table table-default table-default-information">
-							<tbody>
-								<tr>
-									<td>Nama Pelapor:</td>
-									<td>Bobby Najoan</td>
-								</tr>
-								<tr>
-									<td>No. Telp. Pelapor:</td>
-									<td>0823487583</td>
-								</tr>
-								<tr>
-									<td>Email Pelapor:</td>
-									<td>bobby@tagconn.com</td>
-								</tr>
-								<tr>
-									<td>Alamat Pelapor:</td>
-									<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</td>
-								</tr>
-								<tr>
-									<td>Status Laporan</td>
-									<td>Dilapor</td>
-								</tr>
-								<tr>
-									<td>Isi Laporan:</td>
-									<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</td>
-								</tr>
-							</tbody>
-						</table>
-						<hr/>
-						<table class="table table-default table-default-information">
-							<tbody>
-								<tr>
-									<td>Status Laporan</td>
-									<td>
-										<div class="form-group">
-											<select class="form-control">
-												<option>Dilapor</option>
-												<option>Dalam Proses</option>
-												<option>Selesai</option>
-											</select>
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td>Isi Laporan:</td>
-									<td>
-										<div class="form-group">
-											<textarea class="form-control">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</textarea>
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td>Gambar :</td>
-									<td>
-										<div class="form-group">
-											<input type="file" name="">
-										</div>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-					<div class="modal-footer">
-						<button type="submit" class="btn btn-primary">Buat</button>
-						<button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
-					</div>
-				</div>
-			</form>
-
+<section id="dashboard-list">
+	<div class="container">
+		<div class="panel panel-default panel-card-table">
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th>Nama Pengguna</th>
+						<th>Posisi</th>
+						<th>Jumlah Laporan</th>
+						<th>
+							<button type="button" class="btn btn-primary">Tambah User</button>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Lorem Ipsum</td>
+						<td>Dolor Sit Amet</td>
+						<td>120</td>
+						<td>
+							<button type="button" class="btn btn-default">Edit</button>
+							<button type="button" class="btn btn-danger">Hapus</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 	</div>
-</body>
-
-<!-- jQuery -->
-<script type="text/javascript" src="dist/jquery/js/jquery-3.1.1.min.js"></script>
-<!-- Bootstrap -->
-<script type="text/javascript" src="dist/bootstrap/js/bootstrap.min.js"></script>
-<!-- Highchart -->
-<script type="text/javascript" src="dist/highcharts/highcharts.js"></script>
-<!-- Main JS -->
-<script type="text/javascript" src="js/main.js"></script>
-
-</html>
+</section>

@@ -1,0 +1,23 @@
+<div id="login">
+    <form>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4 col-sm-offset-4">
+                    <div class="panel">
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label>Username</label>
+                                <input class="form-control" type="text" ng-model="vm.itemDataSend.username"/>
+                                <label>Password</label>
+                                <input class="form-control" type="password" ng-model="vm.itemDataSend.password"/>
+                                <button type="submit" class="btn btn-primary btn-lg btn-block" ng-click="vm.login()">Login</button>
+                                <button type="submit" class="btn btn-primary btn-lg btn-block" ng-click="vm.check()">Check</button>
+                                <button type="submit" class="btn btn-primary btn-lg btn-block" ng-click="vm.logout()">Logout</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

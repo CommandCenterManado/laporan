@@ -359,6 +359,74 @@ body {
 #main #laporanVerify {
   padding-top: 25px;
 }
+#loading {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 9999;
+  background-color: rgba(236, 240, 241, 0.5);
+}
+#loading .loading-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+#loading .loading-wrapper .loading-container {
+  position: relative;
+}
+#loading .loading-wrapper .loading-container span {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url(../img/logo_manado.png);
+  background-position: bottom;
+  z-index: 1;
+  -webkit-animation: imgLoading 6s linear infinite;
+  animation: imgLoading 6s linear infinite;
+}
+#loading .loading-wrapper .loading-container img {
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
+  opacity: 0.25;
+  height: auto;
+  width: 100%;
+}
+@-webkit-keyframes imgLoading {
+  0% {
+    height: 0;
+    opacity: 1;
+  }
+  90% {
+    height: 100%;
+    opacity: 1;
+  }
+  100% {
+    height: 100%;
+    opacity: 0;
+  }
+}
+@keyframes imgLoading {
+  0% {
+    height: 0;
+    opacity: 1;
+  }
+  90% {
+    height: 100%;
+    opacity: 1;
+  }
+  100% {
+    height: 100%;
+    opacity: 0;
+  }
+}
 #alert {
   position: fixed;
   bottom: 25px;
@@ -366,6 +434,89 @@ body {
   width: 350px;
 }
 #alert .alert:last-child {
+  margin-bottom: 0;
+}
+#login .form-group label {
+  color: #95a5a6;
+  font-size: 0.8rem;
+  font-weight: normal;
+  margin: 0;
+  line-height: 1;
+}
+#login .form-group .form-control {
+  border: none;
+  border-bottom: 1px solid #bdc3c7;
+  background-color: transparent;
+  border-radius: 0;
+  line-height: 1;
+  height: 3rem;
+  padding: 0;
+  font-size: 1rem;
+  margin-bottom: 20px;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+#login .form-group .form-control[type="file"] {
+  position: relative;
+  padding: 0.7rem 0;
+}
+#login .form-group .form-control[type="file"]::-webkit-file-upload-button {
+  visibility: hidden;
+}
+#login .form-group .form-control[type="file"]:after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  text-transform: uppercase;
+  content: "File";
+  color: white;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  background-color: #95a5a6;
+}
+#login .form-group .form-control[type="file"]:after:hover {
+  cursor: pointer;
+}
+#login .form-group .form-control[disabled] {
+  color: rgba(0, 0, 0, 0.35);
+  border-bottom: 1px dotted #bdc3c7;
+}
+#login .form-group .form-control[disabled]::-moz-placeholder {
+  color: rgba(0, 0, 0, 0.15);
+  opacity: 1;
+}
+#login .form-group .form-control[disabled]:-ms-input-placeholder {
+  color: rgba(0, 0, 0, 0.15);
+}
+#login .form-group .form-control[disabled]::-webkit-input-placeholder {
+  color: rgba(0, 0, 0, 0.15);
+}
+#login .form-group .form-control[readonly] {
+  border-bottom: 1px dotted #bdc3c7;
+}
+#login .form-group textarea.form-control {
+  resize: vertical;
+  line-height: 1.5;
+  min-height: 10rem;
+  padding: 0.8rem 0 1.6rem 0;
+}
+#login .form-group .input-group {
+  margin-bottom: 20px;
+}
+#login .form-group .input-group .input-group-addon {
+  border: none;
+  background-color: transparent;
+  padding: 0 1rem;
+}
+#login .form-group .input-group .input-group-btn button {
+  height: 3rem;
+  padding: 0 1rem;
+  border: none;
+  border-radius: 0;
+  margin-right: 10px;
+  text-transform: uppercase;
+}
+#login .form-group .input-group .form-control {
   margin-bottom: 0;
 }
 .modal .form-group label {
