@@ -26,7 +26,7 @@ function logger($log) {
 	vm.error = function (msg) { $log.error(msg); }
 	vm.debug = function (msg) { $log.debug(msg); }
 }
-var baseURL = 'http://10.11.12.242/belajar/backend/index.php/api';
+// var baseURL = 'http://10.11.12.242/belajar/backend/index.php/api';
 var baseURL = 'http://edgarjeremy.com/belajar/backend/index.php/api';
 // var baseURL = 'http://localhost/belajar/backend/index.php/api';
 
